@@ -6,3 +6,7 @@ left-click = blue
 right-click = yellow
 
 hold-drag = aim
+
+X = show lines
+
+C = clear
