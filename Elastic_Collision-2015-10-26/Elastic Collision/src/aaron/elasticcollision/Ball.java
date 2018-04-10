@@ -130,52 +130,52 @@ public class Ball
 	
 	public boolean isTouched(Ball b)
 	{
+		// return false;
+		double dx = (x + r) - (b.getX() + b.getRadius());
+		double dy = (y + r) - (b.getY() + b.getRadius());
+		double dist = Math.sqrt((dx*dx) + (dy*dy));
+		
+		//findNewVelocityGrav(b, dist);
+		
+		if (dist <= r + b.getRadius())
+		{
+			//touched = true;
+			// prevent overlapping of the two objects
+			do {
+				if (dist == 0) {
+					dist = 0.001;
+				}
+				double ang = Math.asin(dy / dist);
+				if (dx < 0 && dy >= 0) {
+					ang = Math.PI - Math.abs(ang);
+				} else if (dx < 0 && dy < 0) {
+					ang = Math.PI + Math.abs(ang);
+				} else if (dx > 0 && dy < 0) {
+					ang = 2*Math.PI - Math.abs(ang);
+				}
+				x += Math.cos(ang);
+				y += Math.sin(ang);
+				
+				dx = (x + r) - (b.getX() + b.getRadius());
+				dy = (y + r) - (b.getY() + b.getRadius());
+				dist = Math.sqrt((dx*dx) + (dy*dy));
+			} while (dist-1 < r + b.getRadius());
+			
+			/*Color c1 = b.getColor();
+			Color c2 = getColor();
+			setColor(c1);
+			b.setColor(c2);*/
+			
+			//findNewVelocity(b);
+			
+			return true;
+		}
+		
+		/*if (dist >r + b.getRadius())
+		{
+			touched = false;
+		}*/
 		return false;
-//		double dx = (x + r) - (b.getX() + b.getRadius());
-//		double dy = (y + r) - (b.getY() + b.getRadius());
-//		double dist = Math.sqrt((dx*dx) + (dy*dy));
-//		
-//		//findNewVelocityGrav(b, dist);
-//		
-//		if (dist <= r + b.getRadius())
-//		{
-//			//touched = true;
-//			// prevent overlapping of the two objects
-//			do {
-//				if (dist == 0) {
-//					dist = 0.001;
-//				}
-//				double ang = Math.asin(dy / dist);
-//				if (dx < 0 && dy >= 0) {
-//					ang = Math.PI - Math.abs(ang);
-//				} else if (dx < 0 && dy < 0) {
-//					ang = Math.PI + Math.abs(ang);
-//				} else if (dx > 0 && dy < 0) {
-//					ang = 2*Math.PI - Math.abs(ang);
-//				}
-//				x += Math.cos(ang);
-//				y += Math.sin(ang);
-//				
-//				dx = (x + r) - (b.getX() + b.getRadius());
-//				dy = (y + r) - (b.getY() + b.getRadius());
-//				dist = Math.sqrt((dx*dx) + (dy*dy));
-//			} while (dist-1 < r + b.getRadius());
-//			
-//			/*Color c1 = b.getColor();
-//			Color c2 = getColor();
-//			setColor(c1);
-//			b.setColor(c2);*/
-//			
-//			//findNewVelocity(b);
-//			
-//			return true;
-//		}
-//		
-//		/*if (dist >r + b.getRadius())
-//		{
-//			touched = false;
-//		}*/
-//		return false;
 	}
 	
 	public void findNewVelocity(Ball b)
